@@ -24,23 +24,19 @@ public class MenuScreen implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont();
 
-        // Configuração do botão de Jogar
         buttonWidth = 200;
         buttonHeight = 70;
         buttonX = (Gdx.graphics.getWidth() - buttonWidth) / 2f;
         buttonY = Gdx.graphics.getHeight() / 2f - buttonHeight / 2f;
         buttonY -= 220;
 
-        // Carrega a textura do botão
         buttonTexture = new Texture(Gdx.files.internal("button.png"));
 
-        // Carrega a textura do fundo
         bgTexture = new Texture(Gdx.files.internal("bgMenu.jpeg"));
     }
 
     @Override
     public void show() {
-        // Configurações de inicialização da tela do menu (se necessário)
     }
 
     @Override
@@ -52,20 +48,16 @@ public class MenuScreen implements Screen {
 
         batch.begin();
 
-        // Desenha o fundo
         batch.draw(bgTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        // Desenha o botão
         drawCenteredTexture(batch, buttonTexture, buttonX, buttonY, buttonWidth, buttonHeight);
 
         batch.end();
 
-        // Verifica se o botão foi tocado
         if (Gdx.input.isTouched()) {
             float touchX = Gdx.input.getX();
             float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-            // Verifica se o toque está dentro do botão
             if (touchX >= buttonX && touchX <= buttonX + buttonWidth &&
                     touchY >= buttonY && touchY <= buttonY + buttonHeight) {
                 game.setScreen(new GameScreen(game));
@@ -80,27 +72,23 @@ public class MenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        // Configurações de redimensionamento da tela (se necessário)
     }
 
     @Override
     public void pause() {
-        // Lógica de pausa da tela (se necessário)
+
     }
 
     @Override
     public void resume() {
-        // Lógica de retomada da tela (se necessário)
     }
 
     @Override
     public void hide() {
-        // Lógica de ocultação da tela (se necessário)
     }
 
     @Override
     public void dispose() {
-        // Descarta os recursos da tela do menu (texturas, fontes, etc.)
         batch.dispose();
         font.dispose();
         buttonTexture.dispose();

@@ -19,17 +19,13 @@ public class GameScreen extends ScreenAdapter {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch = new SpriteBatch();
 
-        // Adiciona uma imagem de fundo
-        background = new Texture("bg.png");
+        background = new Texture("bgGame.jpg");
     }
 
     @Override
     public void render(float delta) {
-        // Limpa a tela
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        // Desenha o fundo
         batch.begin();
         batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.end();
