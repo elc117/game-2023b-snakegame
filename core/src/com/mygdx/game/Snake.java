@@ -41,6 +41,18 @@ public class Snake {
         }
     }
 
+    public Snake(GameScreen gameScreen, int size) {
+        this.gameScreen = gameScreen;
+        spawnApple();
+        segments = new Array<>();
+        direction = Direction.UP;
+
+        for (int i = 0; i < size; i++) {
+            addSegment(100 + i * SNAKE_SIZE, 100);
+        }
+    }
+
+
     private void addSegment(float x, float y) {
         Rectangle newSegment = new Rectangle(x, y, SNAKE_SIZE, SNAKE_SIZE);
         segments.add(newSegment);
@@ -162,6 +174,10 @@ public class Snake {
 
     public Array<Rectangle> getSegments() {
         return segments;
+    }
+
+    public int getSnakeSize() {
+        return this.segments.size;
     }
 
     private void gameOver() {

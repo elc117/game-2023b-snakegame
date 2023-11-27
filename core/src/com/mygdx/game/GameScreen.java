@@ -28,6 +28,16 @@ public class GameScreen extends ScreenAdapter {
         snake = new Snake(this);
     }
 
+    public GameScreen(final MyGame game, int size) {
+        this.game = game;
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        background = new Texture("bgGame.jpg");
+        snake = new Snake(this, size);
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -74,7 +84,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
     public void showGameOverScreen() {
-        game.setScreen(new MenuScreen(game));
+        game.setScreen(new GameOverScreen(game, this.snake.getSnakeSize()));
     }
 }
 
