@@ -76,8 +76,8 @@ public class Snake {
 
         for (int i = 1; i < segments.size; i++) {
             Rectangle currentSegment = segments.get(i);
-            if (head.overlaps(currentSegment)) {
-                //gameOver();
+            if (i >= 12 && head.overlaps(currentSegment)) {
+                gameOver();
             }
         }
 
