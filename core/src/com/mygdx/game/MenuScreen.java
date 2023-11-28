@@ -16,6 +16,8 @@ public class MenuScreen implements Screen {
     private float buttonX, buttonY, buttonWidth, buttonHeight;
     private Texture buttonTexture;
     private Texture bgTexture;
+    private Texture menuLogoTexture;  // Adiciona uma textura para o MenuLogo
+    private float logoScale = 2.3f;  // Fator de escala para aumentar o MenuLogo
 
     public MenuScreen(final MyGame game) {
         this.game = game;
@@ -31,8 +33,8 @@ public class MenuScreen implements Screen {
         buttonY -= 220;
 
         buttonTexture = new Texture(Gdx.files.internal("button.png"));
-
-        bgTexture = new Texture(Gdx.files.internal("bgMenu.jpeg"));
+        bgTexture = new Texture(Gdx.files.internal("bgMenuv2.jpeg"));
+        menuLogoTexture = new Texture(Gdx.files.internal("MenuLogov2.png"));  // Adiciona a textura para o MenuLogo
     }
 
     @Override
@@ -49,6 +51,11 @@ public class MenuScreen implements Screen {
         batch.begin();
 
         batch.draw(bgTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        // Desenha o MenuLogo no topo centralizado com escala
+        float logoX = (Gdx.graphics.getWidth() - menuLogoTexture.getWidth() * logoScale) / 2f;
+        float logoY = Gdx.graphics.getHeight() - menuLogoTexture.getHeight() * logoScale - 20;
+        batch.draw(menuLogoTexture, logoX, logoY, menuLogoTexture.getWidth() * logoScale, menuLogoTexture.getHeight() * logoScale);
 
         drawCenteredTexture(batch, buttonTexture, buttonX, buttonY, buttonWidth, buttonHeight);
 
@@ -93,5 +100,6 @@ public class MenuScreen implements Screen {
         font.dispose();
         buttonTexture.dispose();
         bgTexture.dispose();
+        menuLogoTexture.dispose();
     }
 }
