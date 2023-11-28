@@ -48,8 +48,9 @@ public class Snake {
         direction = Direction.UP;
 
         for (int i = 0; i < size; i++) {
-            addSegment(100 + i * SNAKE_SIZE, 100);
+            addSegment(300 + i * SNAKE_SIZE, 700);
         }
+
     }
 
 
@@ -67,7 +68,7 @@ public class Snake {
             currentSegment.y = previousSegment.y;
         }
 
-        Rectangle head = segments.first();
+        Rectangle head = getHead();
         switch (direction) {
             case UP:
                 head.y += SPEED;
@@ -88,8 +89,9 @@ public class Snake {
 
         for (int i = 1; i < segments.size; i++) {
             Rectangle currentSegment = segments.get(i);
-            if (i >= 12 && head.overlaps(currentSegment)) {
+            if (i > 12 && head.overlaps(currentSegment)) {
                 gameOver();
+                return;
             }
         }
 
@@ -113,12 +115,11 @@ public class Snake {
     private void fixHeadPosition() {
         Rectangle head = segments.first();
         if (head.x < 0) head.x = SCREEN_WIDTH - SNAKE_SIZE;
-        if (head.x < 0) head.x = SCREEN_WIDTH - SNAKE_SIZE;
-        if (head.x < 0) head.x = SCREEN_WIDTH - SNAKE_SIZE;
         if (head.x >= SCREEN_WIDTH) head.x = 0;
         if (head.y < 0) head.y = SCREEN_HEIGHT - SNAKE_SIZE;
         if (head.y >= SCREEN_HEIGHT) head.y = 0;
     }
+
 
 
     public void grow() {
@@ -127,20 +128,7 @@ public class Snake {
         float newSegmentX = tail.x;
         float newSegmentY = tail.y;
 
-        switch (direction) {
-            case UP:
-                newSegmentY += SNAKE_SIZE;
-                break;
-            case DOWN:
-                newSegmentY -= SNAKE_SIZE;
-                break;
-            case LEFT:
-                newSegmentX -= SNAKE_SIZE;
-                break;
-            case RIGHT:
-                newSegmentX += SNAKE_SIZE;
-                break;
-        }
+
         for(int i=0;i<3;i++){
             addSegment(newSegmentX, newSegmentY);
         }

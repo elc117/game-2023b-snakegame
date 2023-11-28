@@ -18,6 +18,10 @@ public class GameScreen extends ScreenAdapter {
     private ShapeRenderer shapeRenderer;
     private Texture background;
 
+    private float timeBetweenClicks = 0.2f;
+    private float timer = 0;
+
+
     public GameScreen(final MyGame game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -55,20 +59,30 @@ public class GameScreen extends ScreenAdapter {
         snake.render(shapeRenderer);
         shapeRenderer.end();
 
+        timer += delta;
+
         handleInput();
         snake.move();
     }
 
     private void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && timer >= timeBetweenClicks) {
             snake.setDirection(Snake.Direction.UP);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            resetTimer();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && timer >= timeBetweenClicks) {
             snake.setDirection(Snake.Direction.DOWN);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            resetTimer();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && timer >= timeBetweenClicks) {
             snake.setDirection(Snake.Direction.LEFT);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            resetTimer();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && timer >= timeBetweenClicks) {
             snake.setDirection(Snake.Direction.RIGHT);
+            resetTimer();
         }
+    }
+
+    private void resetTimer() {
+        timer = 0;
     }
 
     @Override
