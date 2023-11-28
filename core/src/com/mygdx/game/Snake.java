@@ -48,7 +48,7 @@ public class Snake {
         direction = Direction.UP;
 
         for (int i = 0; i < size; i++) {
-            addSegment(300 + i * SNAKE_SIZE, 700);
+            addSegment(300 + i * SNAKE_SIZE, 800);
         }
 
     }
@@ -98,7 +98,21 @@ public class Snake {
         // pegou maça
         if (head.overlaps(apple.getBounds())) {
             grow();
-            spawnApple();
+
+            boolean spawned = true;
+            while(spawned){
+                spawned = false;
+                spawnApple();
+
+                Rectangle spawnedApple = apple.getBounds();
+                for (int i = 1; i < segments.size; i++) {
+                    Rectangle currentSegment = segments.get(i);
+                    if (spawnedApple.overlaps(currentSegment)) {
+                        spawned = true;
+                    }
+                }
+            }
+
         }
 
 

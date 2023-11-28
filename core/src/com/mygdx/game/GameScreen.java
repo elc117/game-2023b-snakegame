@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -21,6 +22,9 @@ public class GameScreen extends ScreenAdapter {
     private float timeBetweenClicks = 0.2f;
     private float timer = 0;
 
+    private float touchInputSpace = 100;
+    public BitmapFont font;
+
 
     public GameScreen(final MyGame game) {
         this.game = game;
@@ -30,6 +34,7 @@ public class GameScreen extends ScreenAdapter {
         shapeRenderer = new ShapeRenderer();
         background = new Texture("bgGame.jpg");
         snake = new Snake(this);
+        font = new BitmapFont();
     }
 
     public GameScreen(final MyGame game, int size) {
@@ -40,6 +45,7 @@ public class GameScreen extends ScreenAdapter {
         shapeRenderer = new ShapeRenderer();
         background = new Texture("bgGame.jpg");
         snake = new Snake(this, size);
+        font = new BitmapFont();
     }
 
     @Override
@@ -51,6 +57,7 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        font.draw(batch, "Pontos: " + ((snake.getSnakeSize()-6)/3), Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight() - 20);
         batch.end();
 
         // desenha a cobra
@@ -62,6 +69,7 @@ public class GameScreen extends ScreenAdapter {
         timer += delta;
 
         handleInput();
+        handleTouchInput();
         snake.move();
     }
 
@@ -80,6 +88,28 @@ public class GameScreen extends ScreenAdapter {
             resetTimer();
         }
     }
+
+    private void handleTouchInput() {
+        if (Gdx.input.isTouched()) {
+            float touchX = Gdx.input.getX();
+            float touchY = Gdx.input.getY();
+
+            if (touchX < touchInputSpace) {
+                snake.setDirection(Snake.Direction.LEFT);
+            } else if (touchX > Gdx.graphics.getWidth() - touchInputSpace) {
+                snake.setDirection(Snake.Direction.RIGHT);
+            }
+
+            if (touchY < touchInputSpace) {
+                snake.setDirection(Snake.Direction.UP);
+            } else if (touchY > Gdx.graphics.getHeight() - touchInputSpace) {
+                snake.setDirection(Snake.Direction.DOWN);
+            }
+
+            resetTimer();
+        }
+    }
+
 
     private void resetTimer() {
         timer = 0;
