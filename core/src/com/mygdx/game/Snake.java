@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 
 public class Snake {
     private GameScreen gameScreen;
@@ -17,6 +21,10 @@ public class Snake {
     private Direction direction;
 
     private Apple apple;
+    private Texture headTexture;
+    private Sprite headSprite;
+    private Texture skinTexture;
+    private Sprite skinSprite;
 
 
 
@@ -36,6 +44,12 @@ public class Snake {
         spawnApple();
         segments = new Array<>();
         direction = Direction.RIGHT;
+        headTexture = new Texture("snake_head_right.png");
+        headSprite = new Sprite(headTexture);
+        headSprite.setSize(SNAKE_SIZE, SNAKE_SIZE);
+        skinTexture = new Texture("skin.png");
+        skinSprite = new Sprite(skinTexture);
+        skinSprite.setSize(SNAKE_SIZE, SNAKE_SIZE);
         for (int i = 0; i < 6; i++) {
             addSegment(100 + i * SNAKE_SIZE, 100);
         }
@@ -46,7 +60,12 @@ public class Snake {
         spawnApple();
         segments = new Array<>();
         direction = Direction.UP;
-
+        headTexture = new Texture("snake_head_up.png");
+        headSprite = new Sprite(headTexture);
+        headSprite.setSize(SNAKE_SIZE, SNAKE_SIZE);
+        skinTexture = new Texture("skin.png");
+        skinSprite = new Sprite(skinTexture);
+        skinSprite.setSize(SNAKE_SIZE, SNAKE_SIZE);
         for (int i = 0; i < size; i++) {
             addSegment(300 + i * SNAKE_SIZE, 800);
         }
@@ -149,19 +168,58 @@ public class Snake {
 
     }
 
-    public void render(ShapeRenderer shapeRenderer) {
+    public void render(ShapeRenderer shapeRenderer, SpriteBatch batch) {
         for (int i = segments.size - 1; i >= 0; i--) {
             Rectangle segment = segments.get(i);
             if (i == 0) {
-                shapeRenderer.setColor(Color.YELLOW);
-            } else {
-                shapeRenderer.setColor(Color.GREEN);
-            }
+                switch(direction){
+                    case UP:
+                        headTexture = new Texture("snake_head_up.png");
+                        headSprite = new Sprite(headTexture);
+                        headSprite.setSize(SNAKE_SIZE, SNAKE_SIZE);
+                        batch.begin();
+                        headSprite.setPosition(segment.x, segment.y + SNAKE_SIZE - 10);
+                        headSprite.draw(batch);
+                        batch.end();
+                        break;
+                    case DOWN:
+                        headTexture = new Texture("snake_head_down.png");
+                        headSprite = new Sprite(headTexture);
+                        headSprite.setSize(SNAKE_SIZE, SNAKE_SIZE);
+                        batch.begin();
+                        headSprite.setPosition(segment.x, segment.y - SNAKE_SIZE + 10);
+                        headSprite.draw(batch);
+                        batch.end();
+                        break;
+                    case LEFT:
+                        headTexture = new Texture("snake_head_left.png");
+                        headSprite = new Sprite(headTexture);
+                        headSprite.setSize(SNAKE_SIZE, SNAKE_SIZE);
+                        batch.begin();
+                        headSprite.setPosition(segment.x - SNAKE_SIZE + 10, segment.y);
+                        headSprite.draw(batch);
+                        batch.end();
+                        break;
+                    case RIGHT:
+                        headTexture = new Texture("snake_head_right.png");
+                        headSprite = new Sprite(headTexture);
+                        headSprite.setSize(SNAKE_SIZE, SNAKE_SIZE);
+                        batch.begin();
+                        headSprite.setPosition(segment.x + SNAKE_SIZE - 10, segment.y);
+                        headSprite.draw(batch);
+                        batch.end();
+                        break;
+                }
 
-            shapeRenderer.rect(segment.x, segment.y, segment.width, segment.height);
+            } else {
+                batch.begin();
+                skinSprite.setPosition(segment.x, segment.y);
+                skinSprite.draw(batch);
+                batch.end();
+            }
         }
 
-        apple.render(shapeRenderer);
+        apple.render(shapeRenderer, batch);
     }
 
     public void setDirection(Direction newDirection) {

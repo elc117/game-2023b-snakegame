@@ -62,8 +62,9 @@ public class GameScreen extends ScreenAdapter {
 
         // desenha a cobra
         shapeRenderer.setProjectionMatrix(camera.combined);
+
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        snake.render(shapeRenderer);
+        snake.render(shapeRenderer, batch);
         shapeRenderer.end();
 
         timer += delta;
