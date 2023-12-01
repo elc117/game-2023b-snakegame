@@ -1,1 +1,17 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/TUsa8_pI)
+## SnakeGame: no jardim botânico da UFSM
+
+### Ideia do Jogo
+
+O **SnakeGame no Jardim Botânico** é uma variação do clássico jogo da cobra. A mecânica principal segue o padrão tradicional, onde os jogadores controlam uma cobra que deve crescer ao comer itens na tela. No entanto, o diferencial está no tema **Jardim Botânico da UFSM** e na sua **mecânica especial**.
+
+
+### Diferenciais do jogo
+
+Ao atingir a tela de "Game Over", os jogadores são desafiados com um quiz sobre o Jardim Botânico. Acertar as perguntas permite que o jogador continue o jogo com o mesmo tamanho da cobra antes do "Game Over". No entanto, se errar, o jogador é redirecionado para o menu inicial.
+
+## Bibliografia
+
+1. **Geração de Imagens com o Microsoft Bing**
+    - https://www.bing.com/images/create?cc=br
+2. ****
+    - 
