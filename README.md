@@ -13,5 +13,7 @@ Ao atingir a tela de "Game Over", os jogadores são desafiados com um quiz sobre
 
 1. **Geração de Imagens com o Microsoft Bing**
     - https://www.bing.com/images/create?cc=br
-2. ****
-    - 
+2. Audio ao comer maçã
+    - https://www.youtube.com/watch?v=ZjK5y_eBg2c
+3. Audio de fundo
+    - https://www.chosic.com/download-audio/58136/

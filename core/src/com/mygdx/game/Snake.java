@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -8,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
+import com.badlogic.gdx.audio.Sound;
 
 public class Snake {
     private GameScreen gameScreen;
@@ -26,6 +27,7 @@ public class Snake {
     private Texture skinTexture;
     private Sprite skinSprite;
 
+    private Sound eatAppleSound;
 
 
     public enum Direction {
@@ -50,6 +52,7 @@ public class Snake {
         skinTexture = new Texture("skin.png");
         skinSprite = new Sprite(skinTexture);
         skinSprite.setSize(SNAKE_SIZE, SNAKE_SIZE);
+        eatAppleSound = Gdx.audio.newSound(Gdx.files.internal("appleSound.mp3"));
         for (int i = 0; i < 6; i++) {
             addSegment(100 + i * SNAKE_SIZE, 100);
         }
@@ -66,6 +69,7 @@ public class Snake {
         skinTexture = new Texture("skin.png");
         skinSprite = new Sprite(skinTexture);
         skinSprite.setSize(SNAKE_SIZE, SNAKE_SIZE);
+        eatAppleSound = Gdx.audio.newSound(Gdx.files.internal("appleSound.mp3"));
         for (int i = 0; i < size; i++) {
             addSegment(300 + i * SNAKE_SIZE, 800);
         }
@@ -116,6 +120,7 @@ public class Snake {
 
         // pegou maça
         if (head.overlaps(apple.getBounds())) {
+            eatAppleSound.play();
             grow();
 
             boolean spawned = true;

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.audio.Music;
 
 public class GameScreen extends ScreenAdapter {
     private final MyGame game;
@@ -25,6 +26,8 @@ public class GameScreen extends ScreenAdapter {
     private float touchInputSpace = 100;
     public BitmapFont font;
 
+    private Music backgroundMusic;
+
 
     public GameScreen(final MyGame game) {
         this.game = game;
@@ -35,6 +38,10 @@ public class GameScreen extends ScreenAdapter {
         background = new Texture("bgGame.jpg");
         snake = new Snake(this);
         font = new BitmapFont();
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("bgSound.mp3"));
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(0.5f);
+        backgroundMusic.play();
     }
 
     public GameScreen(final MyGame game, int size) {
@@ -46,6 +53,10 @@ public class GameScreen extends ScreenAdapter {
         background = new Texture("bgGame.jpg");
         snake = new Snake(this, size);
         font = new BitmapFont();
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("bgSound.mp3"));
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(0.5f);
+        backgroundMusic.play();
     }
 
     @Override
@@ -126,9 +137,12 @@ public class GameScreen extends ScreenAdapter {
         batch.dispose();
         background.dispose();
         shapeRenderer.dispose();
+        backgroundMusic.dispose();
     }
 
+
     public void showGameOverScreen() {
+        backgroundMusic.pause();
         game.setScreen(new GameOverScreen(game, this.snake.getSnakeSize()));
     }
 }
